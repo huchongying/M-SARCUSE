@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "stage": "strict_episode_heldout_frozen",
+  "experiment_family": "M-SARCUSE-1",
+  "configuration_id": "multimodal-recognition-to-response-v1",
+  "parent_experiment": "SARCNEXT-BRIDGE-1",
+  "artifact_root": "artifacts/msarcuse_episode_heldout/fold-0",
+  "data": {
+    "name": "MaSaC",
+    "repository": "https://github.com/LCS2-IIITD/MSH-COMICS",
+    "revision": "659e37da32e4018b124f59ad4acfc3325854ab6d",
+    "license_status": "no_explicit_repository_license",
+    "dataset_path": "artifacts/msarcuse_episode_source/source/development_rows_0_11199/Dataset.development.p",
+    "dataset_sha256": "43D703028AB6EE8AB57DD868E344BBF945D9609C259325369AE6A7D99ABCDE30",
+    "audio_features_path": "artifacts/msarcuse_episode_source/source/development_rows_0_11199/Audio_features.development.p",
+    "audio_features_sha256": "9C6AA4009D60F4165DCBAF88AB1ACAF37F0389F85381B71FE0B6FE0B859C171A",
+    "official_total_rows": 15576,
+    "permitted_development_end_exclusive": 11200,
+    "sealed_confirmation_range": [
+      11200,
+      14000
+    ],
+    "sealed_official_test_range": [
+      14000,
+      15576
+    ],
+    "split_source": "official author code uses rows 0-13999 for model development and rows 14000-15575 as test; this experiment additionally seals rows 11200-13999",
+    "development_evaluation_split": "episode hash bucket 0 of 4 within rows 0-11199",
+    "development_training_split": "episode hash buckets other than 0 of 4 within rows 0-11199",
+    "split_salt": "sarcnext-v1",
+    "independent_unit": "MaSaC episode prefix",
+    "prepared_path": "artifacts/msarcuse_episode_heldout/fold-0/data/development/msarcuse_episode_pairs_fold0.jsonl",
+    "manifest_path": "artifacts/msarcuse_episode_heldout/fold-0/manifests/data_manifest.json",
+    "validation_path": "artifacts/msarcuse_episode_heldout/fold-0/manifests/prepared_data_validation.json",
+    "development_split_unit": "episode",
+    "full_dataset_path": "data/masac/Data/Pickles/Dataset.p",
+    "full_dataset_sha256": "EF2DDC70AB38F5ACA8F70B2F00A8D85109AD94776048E71586A877D971E077F3",
+    "full_audio_features_path": "data/masac/Data/Pickles/Audio_features.p",
+    "full_audio_features_sha256": "BA35702F74ABB9C9B7E80EAD97C4FF986BC9BE57D94BEE43A6E5EA0C5F77B4D2",
+    "source_container_rows": 11200,
+    "development_source_manifest_path": "artifacts/msarcuse_episode_source/manifests/development_source_snapshot.json"
+  },
+  "models": [
+    {
+      "model_id": "qwen2.5-3b",
+      "repository": "Qwen/Qwen2.5-3B-Instruct",
+      "revision": "a1d308dfcc03e09da285d49d912439a655a571e8",
+      "local_path": "models/qwen2.5-3b",
+      "manifest_path": "artifacts/model_manifests/model_qwen2.5-3b.json",
+      "license_metadata": "other/qwen-research",
+      "trust_remote_code": false,
+      "runtime_loader": "causal_lm_cuda",
+      "feature_batch_size": 4
+    },
+    {
+      "model_id": "phi3.5-mini",
+      "repository": "microsoft/Phi-3.5-mini-instruct",
+      "revision": "2fe192450127e6a83f7441aef6e3ca586c338b77",
+      "local_path": "models/phi3.5-mini",
+      "manifest_path": "artifacts/model_manifests/model_phi3.5-mini.json",
+      "license_metadata": "mit",
+      "trust_remote_code": false,
+      "runtime_loader": "causal_lm_cuda",
+      "feature_batch_size": 4
+    },
+    {
+      "model_id": "mistral-7b",
+      "repository": "mistralai/Mistral-7B-Instruct-v0.3",
+      "revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+      "local_path": "models/mistral-7b",
+      "manifest_path": "artifacts/model_manifests/model_mistral-7b.json",
+      "license_metadata": "apache-2.0",
+      "trust_remote_code": false,
+      "tokenizer_loader": "generic_fast_json",
+      "runtime_loader": "causal_lm_cuda",
+      "feature_batch_size": 2
+    },
+    {
+      "model_id": "olmo2-7b",
+      "repository": "allenai/OLMo-2-1124-7B-Instruct",
+      "revision": "470b1fba1ae01581f270116362ee4aa1b97f4c84",
+      "tokenizer_path": "models/olmo2-7b",
+      "local_path": "models/olmo2-7b",
+      "manifest_path": "artifacts/model_manifests/model_olmo2-7b.json",
+      "license_metadata": "apache-2.0",
+      "anonymous_access_required": true,
+      "expected_weight_bytes": 14597276128,
+      "trust_remote_code": false,
+      "runtime_loader": "causal_lm_cuda",
+      "feature_batch_size": 2,
+      "family_id": "olmo2"
+    },
+    {
+      "model_id": "qwen3-8b",
+      "repository": "Qwen/Qwen3-8B",
+      "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+      "tokenizer_path": "models/qwen3-8b",
+      "local_path": "models/qwen3-8b",
+      "manifest_path": "artifacts/model_manifests/model_qwen3-8b.json",
+      "license_metadata": "apache-2.0",
+      "anonymous_access_required": true,
+      "expected_weight_bytes": 16381516776,
+      "trust_remote_code": false,
+      "runtime_loader": "causal_lm_cuda",
+      "feature_batch_size": 1
+    }
+  ],
+  "runtime": {
+    "python": "python",
+    "dtype": "bfloat16",
+    "attention": "sdpa",
+    "one_principal_gpu_job": true,
+    "minimum_free_disk_gib": 10,
+    "accelerate": "1.14.0",
+    "model_loading": "full-bfloat16 on one CUDA device; no model-specific quantization"
+  },
+  "detector": {
+    "representation": "mean contextual hidden state over the final observed turn",
+    "text_feature_normalization": "l2",
+    "audio_feature_normalization": "training standard score",
+    "classifier": "balanced logistic regression",
+    "c": 1,
+    "max_iter": 1000,
+    "threshold": 0.5
+  },
+  "selector": {
+    "training_targets_per_label": 800,
+    "training_conditions": [
+      "text_only",
+      "multimodal",
+      "oracle"
+    ],
+    "evaluation_conditions": [
+      "text_only",
+      "multimodal",
+      "self_multimodal",
+      "oracle"
+    ],
+    "model_pooling": "mean over contextualized candidate tokens",
+    "model_feature_normalization": "l2",
+    "audio_feature_normalization": "training standard score then gated by an explicit modality mask",
+    "status_features": [
+      "unknown",
+      "literal",
+      "sarcastic"
+    ],
+    "hidden_size": 256,
+    "dropout": 0.1,
+    "epochs": 20,
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "positive_weight": 3,
+    "head_validation_modulus": 10,
+    "head_validation_bucket": 0,
+    "best_epoch_selection": "minimum training-dialogue-disjoint validation BCE",
+    "seeds": [
+      20260831,
+      20260832,
+      20260833
+    ],
+    "head_validation_split_unit": "episode"
+  },
+  "evaluation": {
+    "seed": 20260831,
+    "dialogue_pairs": 133,
+    "response_targets": 266,
+    "targets_per_dialogue": 2,
+    "target_labels_per_dialogue": [
+      0,
+      1
+    ],
+    "candidate_count": 4,
+    "conditions": [
+      "text_only",
+      "multimodal",
+      "self_multimodal",
+      "oracle"
+    ],
+    "context_turns": 5,
+    "max_input_tokens": 576,
+    "bootstrap_resamples": 2000,
+    "development_hash_modulus": 4,
+    "development_hash_bucket": 0,
+    "distractor_scope": "different dialogue, same episode, same recorded next speaker",
+    "smoke_dialogue_pairs": 2,
+    "smoke_training_targets_per_label": 40,
+    "development_split_unit": "episode",
+    "strict_episode_heldout": true
+  },
+  "primary_outcomes": {
+    "random_response_accuracy": 0.25,
+    "detector_gain": "text-plus-audio balanced accuracy minus text-only balanced accuracy",
+    "direct_cue_use": "multimodal minus text-only observed-next-turn accuracy",
+    "explicit_recognition_transfer": "self-multimodal minus multimodal observed-next-turn accuracy",
+    "oracle_headroom": "oracle minus multimodal observed-next-turn accuracy",
+    "sarcasm_specificity": "the sarcastic-target gain minus the literal-target gain for each contrast",
+    "development_support_rule": "all five text-only model baselines exceed 0.25; detector balanced-accuracy gain is positive in at least three of five models; fold-stratified dialogue-cluster bootstrap CI95 lower bounds are above zero for Delta_sarcastic, DID, and Delta_corrected",
+    "failure_interpretation": "retain a valid negative or measurement-limited result; do not tune toward a positive estimate",
+    "task_definition": "M-SARCUSE evaluates whether improvements or corrections in multimodal sarcasm recognition translate into better selection of observed conversational responses.",
+    "confirmatory_scope": "all four strict episode-held-out development folds",
+    "delta_sarcastic": "multimodal minus text-only observed-response accuracy on sarcastic targets",
+    "did": "Delta_sarcastic minus the corresponding literal-target gain",
+    "delta_corrected": "multimodal minus text-only observed-response accuracy among model-target units corrected by audio"
+  },
+  "evaluation_policy": {
+    "observed_next_turn_is_gold": true,
+    "claim_is_observed_retrieval_not_response_appropriateness": true,
+    "new_human_annotation": false,
+    "llm_judge": false,
+    "human_evaluation_claim": false,
+    "sealed_confirmation_for_selection": false,
+    "sealed_official_test_for_selection": false,
+    "paid_services": false,
+    "uploads": false,
+    "preserve_prior_results": true,
+    "router_is_secondary_diagnostic_only": true,
+    "new_method_claim": false,
+    "strict_episode_heldout": true,
+    "no_midcourse_adaptation": true
+  },
+  "crossfit_protocol_id": "msarcuse-strict-episode-heldout-v1",
+  "crossfit_fold": 0,
+  "run_prefix": "msarcuse-eh",
+  "active_paper_inputs": "config/paper_inputs.json"
+}

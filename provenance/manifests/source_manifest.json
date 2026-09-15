@@ -1,0 +1,23 @@
+{
+  "created_at_utc": "2026-09-12T15:52:34.606904+00:00",
+  "python": "3.11.15 | packaged by Anaconda, Inc. | (main, Jun 11 2026, 15:12:53) [MSC v.1942 64 bit (AMD64)]",
+  "sources": {
+    "mustard": {
+      "url": "https://github.com/soujanyaporia/MUStARD.git",
+      "revision": "b34b5134beeec42a36cdac79330637de9cc9894e",
+      "license_file": "data/mustard_response\\source\\MUStARD_official\\LICENSE",
+      "metadata_path": "data/mustard_response\\source\\MUStARD_official\\data\\sarcasm_data.json",
+      "metadata_sha256": "fb1a7eb2b8700e4d4dc4e6986e9f891cb318310b37c4d1510bd4e9b237f06332",
+      "media_downloaded": false
+    },
+    "friends_convokit": {
+      "url": "https://zissou.infosci.cornell.edu/convokit/datasets/friends-corpus/friends-corpus.zip",
+      "archive_path": "data/mustard_response\\source\\friends-corpus.zip",
+      "archive_bytes": 6064617,
+      "archive_sha256": "51ae80ce345212839d256b59b4982e9b40229ff6049115bd54d885a285d2b921",
+      "extracted_path": "data/mustard_response\\source\\friends-corpus",
+      "extracted_file_count": 6,
+      "license": "Apache-2.0 (per ConvoKit Friends Corpus documentation)"
+    }
+  }
+}

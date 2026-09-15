@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "path_base": "code/msarcuse",
+  "corpus": "MaSaC",
+  "expected": {
+    "targets": 1154,
+    "episodes": 84,
+    "labels": {"0": 577, "1": 577},
+    "fold0_targets": 288,
+    "fold0_episodes": 21,
+    "fold0_labels": {"0": 144, "1": 144},
+    "training_targets_per_label": 800
+  },
+  "episode_folds": {"path": "data/paper/masac_episode_folds.json", "sha256": null},
+  "evaluation_targets": {"path": "data/paper/masac_evaluation_targets.jsonl", "sha256": null},
+  "training_targets": {
+    "0": {"path": "data/paper/training_targets.fold-0.jsonl", "sha256": null},
+    "1": {"path": "data/paper/training_targets.fold-1.jsonl", "sha256": null},
+    "2": {"path": "data/paper/training_targets.fold-2.jsonl", "sha256": null},
+    "3": {"path": "data/paper/training_targets.fold-3.jsonl", "sha256": null}
+  },
+  "dataset": {
+    "path": "artifacts/msarcuse_episode_source/source/development_rows_0_11199/Dataset.development.p",
+    "sha256": "43d703028ab6ee8ab57dd868e344bbf945d9609c259325369ae6a7d99abcde30"
+  },
+  "audio_features": {
+    "path": "artifacts/msarcuse_episode_source/source/development_rows_0_11199/Audio_features.development.p",
+    "sha256": "9c6aa4009d60f4165dcbaf88ab1acaf37f0389f85381b71fe0b6fe0b859c171a"
+  }
+}

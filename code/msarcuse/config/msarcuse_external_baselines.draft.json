@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "protocol_id": "msarcuse-external-multimodal-baselines-v1",
+  "artifact_root": "artifacts/external_baselines",
+  "folds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "seeds": [
+    20260831,
+    20260832,
+    20260833
+  ],
+  "selector": {
+    "training_targets_per_label": 800,
+    "hidden_size": 256,
+    "dropout": 0.1,
+    "epochs": 20,
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "positive_weight": 3,
+    "candidate_count": 4,
+    "head_validation_modulus": 10,
+    "head_validation_bucket": 0,
+    "checkpoint_selection": "minimum_episode_disjoint_validation_bce"
+  },
+  "recognition": {
+    "threshold": 0.5,
+    "positive_label": 1
+  },
+  "bootstrap": {
+    "resamples": 2000,
+    "seed": 20260831,
+    "stratified_by": null,
+    "clustered_by": "episode",
+    "pooling": "micro",
+    "paired_episode_weights": true
+  },
+  "baselines": [
+    {
+      "method_id": "msh-comics",
+      "evidence_grade": "paper_plus_conflicting_official_code_cleanroom_adapter",
+      "source_revision": "659e37da32e4018b124f59ad4acfc3325854ab6d",
+      "text_backbone": "fold-training-only vocabulary with trainable 300-D embeddings",
+      "audio_input": "released 128-D MaSaC acoustic feature",
+      "sealed_asset_policy": "do not load released full-corpus token or embedding artifacts because they include forbidden rows",
+      "epochs": 15,
+      "batch_size": 32,
+      "learning_rate": 0.001
+    },
+    {
+      "method_id": "mbert-acoustic-rf",
+      "evidence_grade": "paper_described_reconstruction_no_public_code",
+      "source_revision": "doi:10.1109/ICRCICN68210.2025.11364641",
+      "text_backbone": "bert-base-multilingual-cased@3f076fdb1ab68d5b2880cb87a0886f315b8146f8",
+      "audio_input": "released 128-D MaSaC acoustic feature",
+      "classifier": "RandomForestClassifier",
+      "classifier_parameters": {
+        "n_estimators": 300,
+        "max_features": "sqrt",
+        "min_samples_leaf": 1,
+        "class_weight": "balanced",
+        "n_jobs": 8
+      },
+      "invented_pso_search": false
+    },
+    {
+      "method_id": "msnr-msd",
+      "evidence_grade": "official_code_text_audio_adapter",
+      "source_revision": "60be4a73cc235becae81033069dcc1768b0a793f",
+      "text_backbone": "facebook/bart-base@aadd2ab0ae0c8268c7c9693540e9904811f36177",
+      "audio_input": "released 128-D MaSaC acoustic feature projected to official hidden size",
+      "epochs": 20,
+      "batch_size": 16,
+      "learning_rate": 0.0001,
+      "hidden_size": 768,
+      "dropout": 0.1,
+      "snm_memory_size": 64,
+      "snm_confidence_gap": 0.47,
+      "adaptation_limit": "single target-level acoustic vector makes temporal DCM/SNM inapplicable; retain learned acoustic projection and text-conditioned residual gate"
+    },
+    {
+      "method_id": "frozen-early-fusion",
+      "evidence_grade": "paper_cleanroom_adapter_repository_has_no_code",
+      "source_revision": "d6ea8f0953a9d1ae0010eddd14cd60af51d9f765",
+      "text_backbone": "FacebookAI/roberta-base@e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "audio_input": "released 128-D MaSaC acoustic feature",
+      "encoders_frozen": true,
+      "epochs": 20,
+      "batch_size": 128,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "hidden_size": 256,
+      "dropout": 0.1
+    },
+    {
+      "method_id": "mo-sarcation",
+      "evidence_grade": "official_code_text_audio_adapter",
+      "source_revision": "2138083827757a757f591b7f5eaf145df5f6ac8d",
+      "text_backbone": "facebook/bart-base@aadd2ab0ae0c8268c7c9693540e9904811f36177",
+      "audio_input": "released 128-D MaSaC acoustic feature projected into official audio-first fusion path",
+      "learning_rate": 0.0001,
+      "epochs": 20,
+      "batch_size": 16,
+      "hidden_size": 768,
+      "dropout": 0.1,
+      "adaptation_limit": "single target-level acoustic vector and no visual input; retain audio-first projected residual gate and omit visual branch"
+    }
+  ],
+  "freeze_rule": "freeze_each_adapter_after_real_fold0_pipeline_pass_before_remaining_folds",
+  "no_midcourse_adaptation": true,
+  "confirmation_accessed": false,
+  "official_test_accessed": false,
+  "paper_inputs_path": "config/paper_inputs.json"
+}

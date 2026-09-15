@@ -1,0 +1,19 @@
+{
+  "target_high": 0.95,
+  "target_reasonable": 0.8,
+  "context1_high": 0.9,
+  "context2_high": 0.8,
+  "backward_window": 8,
+  "rules": {
+    "LEVEL_A_EXACT": "unique exact target+speaker+context-qualified candidate",
+    "LEVEL_B_HIGH_CONFIDENCE": "unique target>=0.95+speaker+context-qualified candidate",
+    "LEVEL_C_AMBIGUOUS": "reasonable candidate exists but acceptance conditions are not uniquely satisfied",
+    "NO_MATCH": "no candidate with target similarity >=0.80 after blocking"
+  },
+  "observed_counts": {
+    "LEVEL_A_EXACT": 120,
+    "LEVEL_B_HIGH_CONFIDENCE": 19,
+    "LEVEL_C_AMBIGUOUS": 142,
+    "NO_MATCH": 75
+  }
+}

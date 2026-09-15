@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "protocol_id": "msh-comics-cleanroom-reproduction-v1",
+  "status": "draft",
+  "paper": {
+    "title": "Multi-modal Sarcasm Detection and Humor Classification in Code-mixed Conversations",
+    "arxiv": "2105.09984v2",
+    "repository": "https://github.com/LCS2-IIITD/MSH-COMICS",
+    "repository_revision": "659e37da32e4018b124f59ad4acfc3325854ab6d"
+  },
+  "artifact_root": "<LOCAL_PATH>",
+  "source": {
+    "dataset_path": "data/masac/Data/Pickles/Dataset.p",
+    "dataset_sha256": "EF2DDC70AB38F5ACA8F70B2F00A8D85109AD94776048E71586A877D971E077F3",
+    "audio_features_path": "data/masac/Data/Pickles/Audio_features.p",
+    "audio_features_sha256": "BA35702F74ABB9C9B7E80EAD97C4FF986BC9BE57D94BEE43A6E5EA0C5F77B4D2",
+    "token_features_zip_path": "data/masac/Data/Pickles/d_features.zip",
+    "token_features_zip_sha256": "B98C99A574714FDC904AC2DBA2B663FC44F6C4B772A74B8F15AB13F62F0E8FE1",
+    "embedding_zip_path": "data/masac/Data/Pickles/embedding_matrix.zip",
+    "embedding_zip_sha256": "FF40AC6DA10D5F5DB287752082798AEA3AE00EA9F70D79FC428911397A0B072A"
+  },
+  "original_track": {
+    "train_range": [
+      0,
+      12600
+    ],
+    "validation_range": [
+      12600,
+      14000
+    ],
+    "official_test_range": [
+      14000,
+      15576
+    ],
+    "split_unit": "released_row_order",
+    "reported_train_rows": 14000,
+    "reported_test_rows": 1576,
+    "expected_train_positive": 2748,
+    "expected_test_positive": 391,
+    "test_access": "once_after_freeze_and_validation_sanity"
+  },
+  "model": {
+    "variants": [
+      "text_only",
+      "text_audio_filter"
+    ],
+    "embedding_dim": 300,
+    "utterance_hidden": 128,
+    "context_hidden": 128,
+    "utterance_attention_width": 3,
+    "dialogue_attention_width": 5,
+    "context_turns": 10,
+    "max_words": 128,
+    "dropout": 0.4,
+    "audio_dim": 128,
+    "audio_projection_dim": 128
+  },
+  "training": {
+    "optimizer": "adam",
+    "learning_rate": 0.001,
+    "loss": "binary_cross_entropy_with_logits",
+    "batch_size": 32,
+    "epochs": 15,
+    "checkpoint_selection": "minimum_validation_bce",
+    "threshold": 0.5,
+    "seeds": [
+      20260902,
+      20260903,
+      20260904
+    ],
+    "num_workers": 0,
+    "amp": true
+  },
+  "validation_sanity": {
+    "minimum_positive_f1_per_variant_seed": 0.5,
+    "require_finite": true,
+    "require_complete_coverage": true
+  },
+  "published_targets": {
+    "text_only": {
+      "positive_f1": 0.698,
+      "accuracy": 0.871
+    },
+    "text_audio_filter": {
+      "positive_f1": 0.711,
+      "accuracy": 0.873
+    },
+    "audio_f1_gain": 0.013
+  },
+  "reproduction_gate": {
+    "maximum_absolute_f1_gap": 0.03,
+    "maximum_absolute_accuracy_gap": 0.02,
+    "maximum_absolute_audio_gain_gap": 0.03,
+    "require_nonnegative_mean_audio_gain": true,
+    "stage2_on_failure": "stop"
+  },
+  "episode_track": {
+    "enabled_only_after_original_gate_passes": true,
+    "source_end_exclusive": 11200,
+    "fold_configs": [
+      "config/msarcuse_episode_fold0.json",
+      "config/msarcuse_episode_fold1.json",
+      "config/msarcuse_episode_fold2.json",
+      "config/msarcuse_episode_fold3.json"
+    ],
+    "split_salt": "sarcnext-v1",
+    "episode_overlap_required": 0,
+    "bootstrap_clusters": "episode_id",
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 20260831
+  },
+  "active_paper_inputs": "config/paper_inputs.json"
+}
